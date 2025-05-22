@@ -1,13 +1,26 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
   application:
     name: crud-example
+
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@//localhost:1521/FREEPDB1
     username: blog_user
     password: BlogPass123
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: none # ✅ Prevents conflicts if schema is already defined via SQL
+    database-platform: org.hibernate.dialect.OracleDialect # ✅ Use this for Hibernate 6+
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: always # ✅ Ensures schema.sql + data.sql run
+      platform: oracle
+
 server:
-  port: 2120
+  port: 1420

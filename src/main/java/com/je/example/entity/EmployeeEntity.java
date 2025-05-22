@@ -1,21 +1,18 @@
 package com.je.example.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
 
 @Entity
-@Table(
-        //Your database table name
-        name = "employee"
-)
+@Table(name = "employee")
+
 public class EmployeeEntity {
     @Id
-    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
+    @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
+    @Column(name = "id")
     private long id;
     @Column(name = "first_name")
     private String name;
@@ -27,7 +24,7 @@ public class EmployeeEntity {
     private String email;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "hireDate")
+    @Column(name = "hire_date")
     private Date hireDate;
     @Column(name = "salary")
     private String salary;
