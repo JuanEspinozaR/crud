@@ -21,9 +21,11 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/get")
-    public ResponseEntity<List<EmployeeEntity>> get(@RequestParam("id") Long id, @RequestParam("dni") String dni) {
-
-        return ResponseEntity.ok(employeeService.get());
+    public ResponseEntity<List<EmployeeEntity>> get(
+            @RequestParam(value = "dni", required = false) String dni,
+            @RequestParam(value = "email", required = false) String email
+    ) {
+        return ResponseEntity.status(200).body(employeeService.get(email, dni));
     }
 
     /**
@@ -34,6 +36,7 @@ public class EmployeeController {
      */
     @PutMapping("/update/{id}")
     public ResponseEntity<EmployeeEntity> update(@PathVariable("id") Long id, @RequestBody EmployeeEntity employeeEntity) {
+        employeeEntity.setId(id);
         return ResponseEntity.ok(employeeService.update(employeeEntity));
     }
 

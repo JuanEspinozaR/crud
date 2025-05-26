@@ -23,4 +23,4 @@ spring:
       platform: oracle
 
 server:
-  port: 1420
+  port: 1234

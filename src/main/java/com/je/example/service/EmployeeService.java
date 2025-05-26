@@ -28,8 +28,13 @@ public class EmployeeService {
         return employeeRepository.save(employeeEntity);
     }
 
-    public List<EmployeeEntity> get() {
-        return employeeRepository.findAll();
+    public List<EmployeeEntity> get(String email, String dni) {
+        List<EmployeeEntity> employees = employeeRepository.findByEmailAndDni(email, dni);
+        /**
+         //If you'd like to get all data without filter, you can try with findAll() function
+         List<EmployeeEntity> employees = employeeRepository.findAll();
+         **/
+        return employees;
     }
 
 }
