@@ -16,9 +16,7 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     /**
-     * Search all employees info on database
-     *
-     * @return
+     * Retrieve employees, optionally filtered by DNI or email.
      */
     @GetMapping("/get")
     public ResponseEntity<List<EmployeeEntity>> get(
@@ -29,38 +27,31 @@ public class EmployeeController {
     }
 
     /**
-     * Employe to modify info about a employee on database
-     *
-     * @param employeeEntity
-     * @return
+     * Update an existing employee's information by ID.
      */
     @PutMapping("/update/{id}")
-    public ResponseEntity<EmployeeEntity> update(@PathVariable("id") Long id, @RequestBody EmployeeEntity employeeEntity) {
+    public ResponseEntity<EmployeeEntity> update(
+            @PathVariable("id") Long id,
+            @RequestBody EmployeeEntity employeeEntity
+    ) {
         employeeEntity.setId(id);
         return ResponseEntity.ok(employeeService.update(employeeEntity));
     }
 
     /**
-     * Save info about a employee on database
-     *
-     * @param employeeEntity
-     * @return
+     * Save a new employee to the database.
      */
     @PostMapping("/save")
     public ResponseEntity<EmployeeEntity> save(@RequestBody EmployeeEntity employeeEntity) {
         return ResponseEntity.ok(employeeService.save(employeeEntity));
     }
 
-
     /**
-     * Method to delete info about employee on database
-     *
-     * @param id
-     * @return
+     * Delete an employee by ID.
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity delete(@PathVariable("id") long id) {
-        return ResponseEntity.status(employeeService.delete(id) != false ? 200 : 500).build();
+    public ResponseEntity<Void> delete(@PathVariable("id") long id) {
+        boolean deleted = employeeService.delete(id);
+        return ResponseEntity.status(deleted ? 200 : 500).build();
     }
-
 }
