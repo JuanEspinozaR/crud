@@ -24,3 +24,5 @@ spring:
 
 server:
   port: 1234
+  servlet:
+    context-path: /crud-example
